@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>kware.grocery</groupId>
+  <artifactId>grocery-api</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Grocery API</name>
+  <description>Grocery API</description>
+
+  <properties>
+    <java.version>121</java.version>
+    <lombok.version>1.18.34</lombok.version>
+    <jackson.csv.version>2.15.0</jackson.csv.version>
+    <tesseract.version>4.6.0</tesseract.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <openapi-generator-maven-plugin.version>7.0.0</openapi-generator-maven-plugin.version>
+    <spring-boot.version>3.3.0</spring-boot.version>
+  </properties>
+
+  <dependencies>
+          <!-- 
+            DEPENDENCY: Core dependency for any Spring Boot web application (includes MVC, Tomcat, etc.). 
+            This is required to run the generated server interfaces and controllers.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        
+        <!-- 
+            DEPENDENCY: Required for configuring and launching the Spring Boot application. 
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- 
+            DEPENDENCY: For validating request body constraints (e.g., @NotNull) 
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- 
+            DEPENDENCY: The generated code itself depends on the javax/jakarta validation API
+        -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+          <groupId>io.swagger.core.v3</groupId>
+          <artifactId>swagger-annotations</artifactId>
+          <version>2.2.20</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.openapitools</groupId>
+          <artifactId>jackson-databind-nullable</artifactId>
+          <version>0.2.6</version> <!-- Or the latest stable version -->
+        </dependency>
+
+        <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>${lombok.version}</version>
+          <scope>provided</scope>
+        </dependency>
+  </dependencies>
+
+  <build>
+  <plugins>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/grocery-api.openapi.yaml
+              </inputSpec>
+              <generatorName>spring</generatorName>
+              <library>spring-boot</library>
+              <apiPackage>kware.grocery.generated.api</apiPackage>
+              <modelPackage>kware.grocery.generated.model</modelPackage>
+              <output>${project.build.directory}/generated-sources/openapi</output>
+              <configOptions>
+                <sourceFolder>src/gen/java/main</sourceFolder>
+                <interfaceOnly>true</interfaceOnly>
+                <!-- <generateSupportingFiles>false</generateSupportingFiles> -->
+                <useSpringBoot3>true</useSpringBoot3>
+                <lombok>true</lombok>
+                <useSwaggerAnnotations>false</useSwaggerAnnotations>
+              </configOptions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      </plugins>
+  </build>
+
+</project>
