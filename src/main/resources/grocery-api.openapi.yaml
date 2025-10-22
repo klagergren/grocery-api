@@ -27,7 +27,7 @@ tags:
       url: https://swagger.io
 
 paths:
-  /receipt:
+  /api/receipt:
     post:
       tags:
         - receipt
@@ -54,6 +54,21 @@ paths:
             application/json:
               schema:
                 type: string
+  /api/receipts:
+    get:
+      tags:
+        - receipt
+      summary: Get all receipts
+      operationId: getReceipts
+      responses:
+        "200":
+          description: All receipts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Receipt"
 components:
   schemas:
     Receipt:
@@ -62,4 +77,4 @@ components:
         receiptLines:
           type: array
           items:
-            format: string
+            type: string
