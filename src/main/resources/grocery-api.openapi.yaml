@@ -74,6 +74,8 @@ components:
     Receipt:
       type: object
       properties:
+        id:
+          type: string
         receiptLines:
           type: array
           items:
