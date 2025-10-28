@@ -54,6 +54,13 @@ paths:
             application/json:
               schema:
                 type: string
+  #  /api/receipt/{id}: TODO: Implement
+  #    get:
+  #      tags:
+  #        - receipt
+  #      summary: Get receipt with specific id
+  #      operationId: getReceipt
+  #      properties:
   /api/receipts:
     get:
       tags:
